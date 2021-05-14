@@ -43,9 +43,6 @@ func file_open(Username string,Password string,IP string){
 			break
 		}
 		content := strings.Replace(line, "\r\n", "", -1)
-		//fmt.Println(content)
-		//mysql_conn(Username,content,IP)
-
 		var wg sync.WaitGroup
 		for i := 0; i < 1; i++ {
 			wg.Add(1)
@@ -63,7 +60,6 @@ func file_open(Username string,Password string,IP string){
 
 //mysql
 func mysql_conn(Username string,content string,IP string){
-	//Ip := IP
 	username := Username
 	Password := content
 	Port :=3306
@@ -95,41 +91,11 @@ func mysql_conn(Username string,content string,IP string){
 
 			}else {
 				success :=fmt.Sprintf("ip:%v 用户：%v 密码:%v",Ip,username,Password)
-				//fmt.Println("爆破成功",success)
 				color.Info.Println("爆破成功",success)
 			}
 		}
 	}
-	/*
-	username := Username
-	Password := content
-	Port :=3306
-	_,err := tcp_Connect(Ip,Port)
-	if err !=nil{
-		color.Info.Println("端口没有开放，停止爆破mysql",)
-		os.Exit(0)
-	}else{
-		dataSourceName := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8", username, Password, Ip, Port, "mysql")
-		db, err := sql.Open("mysql", dataSourceName)
-		db.SetMaxIdleConns(20)
-		db.SetMaxOpenConns(20)
-		db.SetConnMaxLifetime(time.Second * 500)
-		if err != nil {
-			//panic(err)
-		}
-		defer db.Close()
-		err = db.Ping()
-		if err != nil {
-			failure:=fmt.Sprintf("ip:%v 用户：%v 密码:%v",Ip,username,Password)
-			color.Danger.Println("爆破失败",failure)
-
-		}else {
-			success :=fmt.Sprintf("ip:%v 用户：%v 密码:%v",Ip,username,Password)
-			//fmt.Println("爆破成功",success)
-			color.Info.Println("爆破成功",success)
-		}
-	}*/
-
+	
 }
 
 //tcp连接扫描端口
@@ -150,6 +116,5 @@ func Iplist(ip string)([]net.IP ,error){
 		fmt.Println(err)
 	}
 	addressList :=list.Expand()
-	//fmt.Println(addressList)
 	return addressList,err
 }
