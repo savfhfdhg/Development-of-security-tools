@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-from multiprocessing import Pool
 import requests
 import random
 import chardet
